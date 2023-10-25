@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Product</title>
+</head>
+<body>
+    <div>
+        <h1>Edit Product</h1>
+    </div>
+
+    <a href="/">Home</a>
+
+    <div class="form">
+        <form action="/products/edit/<%= product.id %>" method="POST">
+            <div>
+                <label for="name">Product Name</label>
+                <input type="text" name="name" id="name" value="<%= product.name %>">
+            </div>
+            <div>
+                <label for="price">Product Price</label>
+                <input type="number" name="price" id="price" value="<%= product.price %>">
+            </div>
+            <div>
+                <label for="description">Product Description</label>
+                <input type="text" name="description" id="description" value="<%= product.description %>">
+            </div>
+            <div>
+                <label for="image">Product Image</label>
+                <input type="text" name="image" id="image" value="<%= product.productImg %>">
+            <div>
+                <label for="category">Product Category</label>
+                <% categories.forEach(category => { %>
+                    <div>
+                        <input type="radio" name="category" id="category" value="<%= category.id %>">
+                        <label for="<% category.id %>"><%= category.name %></label>
+                    </div>
+                <% }) %>
+            </div>
+                <button type="submit">Edit Product</button>
+            </div>
+        </form>
+    </div>

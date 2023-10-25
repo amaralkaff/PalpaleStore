@@ -1,0 +1,47 @@
+[
+    {
+        "id": 1,
+        "name": "Smartphone X",
+        "description": "A high-end smartphone with the latest technology.",
+        "price": 699,
+        "stock": 50,
+        "productImg": "https://img.freepik.com/free-vector/realistic-front-view-smartphone-mockup-mobile-iphone-purple-frame-with-blank-white-display-vector_90220-959.jpg?w=1060&t=st=1698235466~exp=1698236066~hmac=e516987ff8165a20acce1ffd7e2f3cd0f680f998e66fe72ae9a12f65a960d0e8",
+        "UserId": 2
+    },
+    {
+        "id": 2,
+        "name": "Laptop Pro",
+        "description": "Powerful laptop for professionals and gamers.",
+        "price": 1299,
+        "stock": 30,
+        "productImg": "https://media.istockphoto.com/id/1266659893/id/vektor/laptop-layar-putih-kosong-terisolasi.jpg?s=1024x1024&w=is&k=20&c=ZL-MBNEjT29UxuXtKumjOrtuRjP2qfHesLDUu-42Ewo=",
+        "UserId": 2
+    },
+    {
+        "id": 3,
+        "name": "Wireless Earbuds",
+        "description": "Bluetooth earbuds with noise-canceling technology.",
+        "price": 89,
+        "stock": 100,
+        "productImg": "https://img.freepik.com/free-psd/wireless-tws-earbuds-icon-isolated-3d-render-illustration_439185-12642.jpg?w=1060&t=st=1698235636~exp=1698236236~hmac=efa3839fc5f1a71e0872327a4e6e0d6cedae224c02a929024cbd07d6b12cf32d",
+        "UserId": 2
+    },
+    {
+        "id": 4,
+        "name": "Smart Watch 2",
+        "description": "A feature-packed smartwatch with health tracking.",
+        "price": 149,
+        "stock": 20,
+        "productImg": "https://img.freepik.com/free-psd/digital-smart-watch-icon-isolated-3d-render-illustration_439185-11924.jpg?w=1060&t=st=1698235684~exp=1698236284~hmac=a8b45a80bf1bac3df7aca79be86de296a94e50a9b63ca88572d795d83afe7d27",
+        "UserId": 2
+    },
+    {
+        "id": 5,
+        "name": "Gaming Console Deluxe",
+        "description": "The ultimate gaming console for gamers.",
+        "price": 499,
+        "stock": 10,
+        "productImg": "https://img.freepik.com/free-psd/gamepad-game-controller-icon-isolated-3d-render-illustration_439185-11801.jpg?w=1060&t=st=1698235740~exp=1698236340~hmac=1f2cebcb7fd09c26138186ddd4f579d114057902d012eceb33cd25b29746248e",
+        "UserId": 2
+    }
+]
