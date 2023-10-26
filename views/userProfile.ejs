@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <!-- Add Tailwind CSS CDN link -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100 font-sans">
+    <div class="bg-blue-500 p-4 text-white">
+        <h1 class="text-2xl font-semibold">User Profile</h1>
+    </div>
+
+    <div class="p-4">
+        <a href="/products" class="text-blue-500 hover:underline">Back to Products</a>
+    </div>
+
+    <div class="container mx-auto mt-6">
+        <h1 class="text-2xl font-semibold mb-4">User Profile Details</h1>
+        <table class="w-full border-collapse border border-gray-300">
+            <thead>
+                <tr class="bg-gray-200">
+                    <th class="py-2 px-4">No</th>
+                    <th class="py-2 px-4">Username</th>
+                    <th class="py-2 px-4">Role</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% data.forEach((el, index) => { %>
+                    <tr class="hover:bg-gray-100">
+                        <td class="py-2 px-4 text-center"><%= index + 1 %></td>
+                        <td class="py-2 px-4 text-center"><%= el.username %></td>
+                        <td class="py-2 px-4 text-center"><%= el.role %></td>
+                    </tr>
+                <% }) %>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

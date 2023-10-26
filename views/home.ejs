@@ -1,18 +1,343 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="h-full">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Palpale Store</title>
+    <!-- Add Tailwind CSS CDN link -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        /* Add custom styles for the background image */
+        .bg-store {
+            background-image: url('your-image-url.jpg'); /* Replace with your image URL */
+        }
+        * {
+  margin: 0;
+}
+
+.fullscreen-container {
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+  background: black;
+  background-image: linear-gradient(
+    45deg,
+    #f3f3f3,
+    #f3f3f3 25%,
+    #eaeaea 25%,
+    #eaeaea 50%,
+    #f3f3f3 50%,
+    #f3f3f3 75%,
+    #eaeaea 75%,
+    #eaeaea
+
+  );
+  background-size: 600vw 600vh;
+  animation: bg-gradient-changer 100s linear infinite;
+}
+
+@keyframes bg-gradient-changer {
+  0% {
+    background-position: 0% 0%;
+  }
+  25% {
+    background-position: 100% 0%;
+  }
+  50% {
+    background-position: 100% 100%;
+  }
+  75% {
+    background-position: 0% 100%;
+  }
+  100% {
+    background-position: 0% 0%;
+  }
+}
+
+.fullscreen-container .message-box {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: "Montserrat", sans-serif;
+  width: 60%;
+}
+
+.fullscreen-container .message-box p {
+  font-size: 6rem;
+  text-align: center;
+}
+
+.fullscreen-container .message-box .msg1 {
+  font-size: 2rem;
+  font-weight: 300;
+  line-height: 1;
+  opacity: 0.8;
+}
+
+.fullscreen-container .message-box .msg2 {
+  font-size: 1.4rem;
+  font-weight: 500;
+  opacity: 0.5;
+}
+
+.fullscreen-container .message-box footer {
+  margin-top: 1rem;
+  font-size: 1rem;
+  text-align: right;
+  opacity: 0.7;
+}
+
+.opacity-0 {
+  opacity: 0;
+}
+
+.show {
+  animation: show 2s linear;
+}
+
+@keyframes show {
+  0% {
+    opacity: 0;
+  }
+  20% {
+    opacity: 1;
+  }
+  80% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@media screen and (min-width: 500px) {
+  .fullscreen-container .message-box {
+    width: 50%;
+  }
+  .fullscreen-container .message-box .msg1 {
+    font-size: 3rem;
+  }
+}
+
+@media screen and (min-width: 800px) {
+  .fullscreen-container .message-box {
+    width: 40%;
+  }
+  .fullscreen-container .message-box .msg1 {
+    font-size: 4rem;
+  }
+  .fullscreen-container .message-box .msg2 {
+    font-size: 2.2rem;
+  }
+  .fullscreen-container .message-box footer {
+    margin-top: 2rem;
+    font-size: 2rem;
+  }
+}
+
+@media screen and (min-width: 1000px) {
+  .fullscreen-container .message-box .msg1 {
+    font-size: 5rem;
+  }
+  .fullscreen-container .message-box .msg2 {
+    font-size: 4.2rem;
+  }
+}
+
+    </style>
 </head>
-<body>
-    <div>
-        <h1>Palpale Store</h1>
-    </div>
-    <div>
-    <a href="/login">Login</a>
-    <a href="/register">Register</a>
-    <a href="/products">Products</a>
-    </div>
-</body>
+<body class="bg-store bg-no-repeat bg-cover h-full">
+    <header class="bg-blue-500 p-1 text-white">
+        <div class="container mx-auto">
+            <h1 class="text-2xl font-semibold">Palpale Store</h1>
+        </div>
+    </header>
+    <nav class="bg-blue-400 p-1">
+        <div class="container mx-auto flex justify-center space-x-4">
+            <a href="/login" class="text-white hover:underline">Login</a>
+            <a href="/register" class="text-white hover:underline">Register</a>
+            <a href="/products" class="text-white hover:underline">Products</a>
+        </div>
+    </nav>
+    <main>
+        <div class="fullscreen-container">
+
+            <div class="message-box message-box-1 opacity-0 show">
+              <p class="msg1">Hello, World!</p>
+              <p class="msg2">Stay safe</p>
+              <footer>English</footer>
+            </div>
+            <div class="message-box message-box-2">
+              <p class="msg1"></p>
+              <p class="msg2"></p>
+              <footer></footer>
+            </div>
+          
+          </div>
+    </main>
+    </body>
+    <script>
+        const hellos = [
+  {
+    lang: "English",
+    msg1: "Hello, World!",
+    msg2: "Stay safe",
+  },
+  {
+    lang: "Indonesia",
+    msg1: "Hallo, Dunia!",
+    msg2: "Jangan Lupa Palpale Bernyanyi"
+  },
+  {
+    lang: "German",
+    msg1: "Hallo Welt!",
+    msg2: "Bleib sicher"
+  },
+  {
+    lang: "French",
+    msg1: "Bonjour le monde!",
+    msg2: "Restez en sécurité"
+  },
+  {
+    lang: "Spanish",
+    msg1: "¡Hola Mundo!",
+    msg2: "Mantente segura"
+  },
+  {
+    lang: "Portuguese",
+    msg1: "Olá Mundo!",
+    msg2: "Fique seguro"
+  },
+  {
+    lang: "Italian",
+    msg1: "Ciao mondo!",
+    msg2: "Rimanga sicuro"
+  },
+  {
+    lang: "Dutch",
+    msg1: "Hallo Wereld!",
+    msg2: "Blijf Veilig"
+  },
+  {
+    lang: "Malaysian",
+    msg1: "Hai Bumi!",
+    msg2: "Pastikan anda selamat"
+  },
+  {
+    lang: "Russian",
+    msg1: "Привет, мир",
+    msg2: "Оставаться в безопасности"
+  },
+  {
+    lang: "Thai",
+    msg1: "สวัสดีชาวโลก",
+    msg2: "อยู่อย่างปลอดภัย"
+  },
+  {
+    lang: "Arabic",
+    msg1: "مرحبا بالعالم",
+    msg2: "ابق آمنًا"
+  },
+  {
+    lang: "Korean",
+    msg1: "안녕하세요 월드",
+    msg2: "안전 유지"
+  },
+  {
+    lang: "Japanese",
+    msg1: "こんにちは世界",
+    msg2: "おげんきで"
+  },
+  {
+    lang: "Chinese",
+    msg1: "你好，世界",
+    msg2: "注意安全"
+  }
+];
+
+const box1 = document.querySelector(".message-box-1");
+const box2 = document.querySelector(".message-box-2");
+
+const duration = 2; // 2 seconds
+let startTime;
+let box1show = true;
+let box2show = false;
+
+let secondCount = 0;
+let indexCount = 0;
+
+const animate = (timestamp) => {
+  let runtime = timestamp - startTime;
+  runtime = (runtime / 1000).toFixed(0);
+
+  if (runtime > secondCount + 1) {
+    secondCount++;
+  }
+  if (indexCount >= hellos.length) {
+    indexCount = 0;
+  }
+
+  if ((secondCount + duration) % (2 * duration) === 0 && box1show) {
+    console.log("box 2 on");
+    box2show = true;
+    box1show = false;
+
+    box2.classList.add("show");
+    box1.classList.remove("show");
+    box1.classList.add("opacity-0");
+
+    nextRandomIndex = randomIndexes[indexCount];
+    box2.innerHTML = displayMessageBox(nextRandomIndex);
+    indexCount++;
+  } else if (secondCount % (2 * duration) === 0 && box2show) {
+    console.log("box 1 on");
+    box2show = false;
+    box1show = true;
+
+    box1.classList.add("show");
+    box2.classList.remove("show");
+    box2.classList.add("opacity-0");
+
+    nextRandomIndex = randomIndexes[indexCount];
+    box1.innerHTML = displayMessageBox(nextRandomIndex);
+    indexCount++;
+  }
+
+  requestAnimationFrame((timestamp) => {
+    animate(timestamp);
+  });
+};
+
+const animationTimer = () => {
+  requestAnimationFrame((timestamp) => {
+    startTime = timestamp;
+    animate(timestamp);
+  });
+};
+// create array of only indices
+let justIndexes = hellos.map((item, ind) => {
+  return ind;
+});
+// create an array of indices that are in random order
+let randomIndexes = [];
+for (let i = 0, length = justIndexes.length; i < length; i++) {
+  const randomIndex = Math.floor(Math.random() * justIndexes.length);
+  randomIndexes[i] = justIndexes[randomIndex];
+  // remove index from array
+  justIndexes = justIndexes.filter((x) => x !== justIndexes[randomIndex]);
+}
+
+// generate HTML
+const displayMessageBox = (index) => {
+  return `
+  <p class="msg1">${hellos[index].msg1}</p>
+  <p class="msg2">${hellos[index].msg2}</p>
+  <footer>${hellos[index].lang}</footer>
+  `;
+};
+// kick off timer animation
+animationTimer();
+    </script>
 </html>
+

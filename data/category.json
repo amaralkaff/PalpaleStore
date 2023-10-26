@@ -10,5 +10,25 @@
     {
         "id": 3,
         "name": "Accessories"
+    },
+    {
+        "id": 4,
+        "name": "Technology"
+    },
+    {
+        "id": 5,
+        "name": "Gaming"
+    },
+    {
+        "id": 6,
+        "name": "Electronics"
+    },
+    {
+        "id": 7,
+        "name": "Gadgets"
+    },
+    {
+        "id": 8,
+        "name": "Tools"
     }
 ]

@@ -1,7 +1,22 @@
 const formatNumber = require('../helpers/formatDollar')
 const { Category, Product, ProductCategory, User, Profile } = require('../models')
+const xendit = require('xendit-node');
+const { Op } = require('sequelize')
+const bcrypt = require('bcryptjs')
 
 class Controller {
+
+    // static async webhook(req, res) {
+    //     try {
+    //         // console.log(req.body)
+    //         res.status(200).json({
+    //             message: 'webhook'
+    //         })
+    //     } catch (err) {
+    //         res.send(err)
+    //     }
+    // }
+
     static async home(req, res) {
         try {
             res.render('home.ejs')
@@ -12,9 +27,13 @@ class Controller {
 
     static async login(req, res) {
         try {
-            res.render('login.ejs')
-        } catch (err) {
-            res.send(err)
+            let error = []
+            if (req.query.err) {
+                error = req.query.err.split(',')
+            }
+            res.render('login.ejs'), { error }
+        } catch (error) {
+            res.send(error)
         }
     }
 
@@ -23,30 +42,42 @@ class Controller {
             const { username, password } = req.body
             const user = await User.findOne({
                 where: {
-                    username,
-                    password
-                },
-                include: Profile
+                    username
+                }
             })
             if (user) {
-                req.session.user = {
-                    id: user.id,
-                    username: user.username,
-                    role: user.role,
-                    profile: user.Profile
+                const isPassword = bcrypt.compareSync(password, user.password)
+                // console.lo(isPassword);
+                if (isPassword) {
+                    req.session.user = {
+                        id: user.id,
+                        username: user.username,
+                        role: user.role,
+                        Profile: user.Profile
+                    }
+                    // console.log(req.session);
+                    res.redirect('/products')
+                } else {
+                    res.redirect('/login?error=Invalid Password')
                 }
-                res.redirect('/products')
             } else {
-                res.send('username/password salah')
+                res.redirect('/login?error=Invalid Username')
             }
-        } catch (err) {
-            res.send(err)
+        } catch (error) {
+            if (err.name === 'SequelizeValidationError') {
+                const err = error.errors.map(err => err.message);
+                res.redirect(`/login?err=${err}`);
+            }
         }
     }
 
     static async register(req, res) {
         try {
-            res.render('register.ejs')
+            let error = []
+            if (req.query.err) {
+                error = req.query.err.split(',')
+            }
+            res.render('register.ejs', { error })
         } catch {
             res.send(err)
         }
@@ -60,41 +91,48 @@ class Controller {
                 password,
                 role
             })
-            res.redirect('/login', { user })
-        } catch (err) {
-            res.send(err)
+            // console.log(user);
+            res.redirect('/login')
+        } catch (error) {
+            if (error.name === 'SequelizeValidationError') {
+                const err = error.errors.map(err => err.message);
+                res.redirect(`/register?err=${err}`);
+            }
         }
     }
 
     static async logout(req, res) {
         try {
             req.session.destroy()
-            res.redirect('/')
+            res.redirect('/login')
         } catch (err) {
             res.send(err)
         }
     }
 
-    static async products(req, res) {
+    static async showProducts(req, res) {
         try {
-            const filter = req.query.filter
-            const product = await Product.findAll({
-                include: Category
-            })
-            if (filter) {
-                const filteredProduct = product.filter(el => el.Category.name === filter)
-                res.render('products.ejs', { product: filteredProduct, formatNumber })
-            }
-            res.render('products.ejs', { product, formatNumber })
+            let sortPrice = req.query.sortPrice
+            let search = req.query.search
+            const data = await Product.getSearchFilter(sortPrice, search)
+            const username = req.session.user.username
+            const role = req.session.user.role
+
+            res.render('products.ejs', { data, username, role, formatNumber })
         } catch (err) {
-            res.send(err)
+            // console.log(err);
+            res.send(err.message)
         }
     }
 
     static async addProduct(req, res) {
         try {
+            let error = []
+            if (req.query.err) {
+                error = req.query.err.split(',')
+            }
             const categories = await Category.findAll()
-            res.render('addProduct.ejs', { categories })
+            res.render('addProduct.ejs', { categories, error })
         } catch (err) {
             res.send(err)
         }
@@ -108,7 +146,7 @@ class Controller {
                 description,
                 price,
                 stock,
-                productImg,
+                productImg: productImg,
                 UserId: req.session.user.id
             })
             const productCategory = await ProductCategory.create({
@@ -116,16 +154,24 @@ class Controller {
                 CategoryId: category
             })
             res.redirect('/products')
-        } catch (err) {
-            res.send(err)
+        } catch (error) {
+            if (error.name === 'SequelizeValidationError') {
+                const err = error.errors.map(err => err.message);
+                res.redirect(`/products/add?err=${err}`);
+            }
         }
     }
 
     static async editProduct(req, res) {
         try {
+            let error = []
+            if (req.query.err) {
+                error = req.query.err.split(',')
+            }
             const product = await Product.findByPk(req.params.id)
             const categories = await Category.findAll()
-            res.render('editProduct.ejs', { product, categories })
+            // console.log(product, categories);
+            res.render('editProduct.ejs', { product, categories, error })
         } catch (err) {
             res.send(err)
         }
@@ -146,6 +192,7 @@ class Controller {
                     id: req.params.id
                 }
             })
+            // console.log(product);
             const productCategory = await ProductCategory.update({
                 ProductId: product.id,
                 CategoryId: category
@@ -154,14 +201,23 @@ class Controller {
                     id: req.params.id
                 }
             })
-            res.redirect('/products', { productCategory })
-        } catch (err) {
-            res.send(err)
+            // console.log(productCategory);
+            res.redirect('/products')
+        } catch (error) {
+            if (error.name === 'SequelizeValidationError') {
+                const err = error.errors.map(err => err.message);
+                res.redirect(`/products/edit/${req.params.id}?err=${err}`);
+            }
         }
     }
 
     static async deleteProduct(req, res) {
         try {
+            const productCategory = await ProductCategory.destroy({
+                where: {
+                    ProductId: req.params.id
+                }
+            })
             const product = await Product.destroy({
                 where: {
                     id: req.params.id
@@ -175,29 +231,83 @@ class Controller {
 
     static async detailProduct(req, res) {
         try {
-            const product = await Product.findByPk(req.params.id)
-            res.render('productDetail.ejs', { product, formatNumber })
+            const product = await Product.increment('stock', {
+                by: 1,
+                where: {
+                    id: req.params.id
+                }
+            })
+            const data = await Product.findByPk(req.params.id, {
+                include: Category
+            })
+            const role = req.session.user.role
+            res.render('detailProduct.ejs', { data, product, role, formatNumber })
         } catch (err) {
             res.send(err)
         }
     }
-
-    // static async cart(req, res) {
-    //     try {
-    //         res.render('cart.ejs')
-    //     } catch (err) {
-    //         res.send(err)
-    //     }
-    // }
 
     static async checkout(req, res) {
         try {
-            res.render('checkout.ejs')
+            const data = await Product.findByPk(req.params.id, {
+                include: Category
+            })
+            const username = req.session.user.username
+            const role = req.session.user.role
+            const stock = req.body.stock
+            const product = await Product.update({
+                stock: stock
+            }, {
+                where: {
+                    id: req.params.id
+                },
+                include: Category
+            })
+            res.render('checkout.ejs', { product, username, role, data, formatNumber })
+        } catch (err) {
+            res.send(err)
+        }
+    }
+    
+
+    
+    static async userProfile(req, res) {
+        try {
+            const data = await User.findAll({
+                where: {
+                    id: req.session.user.id
+                },
+                include: Profile
+            })
+            // console.log(data);
+            res.render('userProfile.ejs', { data })
         } catch (err) {
             res.send(err)
         }
     }
 
+    static async buyProduct(req, res) {
+        try {
+            const product = await Product.update({
+                stock: req.body.stock
+            }, {
+                where: {
+                    id: req.params.id
+                }
+            })
+            console.log(product);
+            res.redirect('/products')
+        } catch (err) {
+            res.send(err)
+        }
+    }
+
+
+    
+    
+    
+    
+    
 }
 
 module.exports = Controller

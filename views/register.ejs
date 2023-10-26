@@ -4,30 +4,49 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register</title>
+    <!-- Add Tailwind CSS CDN link -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet">
 </head>
-<body>
-    <div>
-        <h1>Register</h1>
+<body class="bg-gradient-to-r from-blue-500 via-blue-400 to-blue-300 font-sans h-screen flex flex-col justify-center items-center">
+    <div class="mb-8">
+        <h1 class="text-4xl font-extrabold text-center text-white">Register</h1>
     </div>
 
-    <a href="/">Home</a>
+    <div style="text-align: center;" class=" mb-8">
+        <% if (error.length > 0) { %>
+            <% error.forEach(error => { %>
+                <div class="bg-red-100 border-red-500 text-red-700 px-4 py-1 rounded relative mb-4" role="alert"> 
+                    <strong class="font-bold">Error!</strong>
+                    <span class="block sm:inline"><%= error %></span>
+                </div>
+            <% }) %>
+        <% } %>
+    </div>
+    
+    <a href="/" class="text-white hover:underline text-sm absolute top-4 left-4">Home</a>
 
-    <div class="form">
+    <div class="form w-1/3 bg-white shadow-md rounded px-8 pt-6 pb-8">
         <form action="/register" method="POST">
-            <div>
-                <label for="username">Username</label>
-                <input type="username" name="username" id="username" placeholder="Enter your username">
+            <div class="mb-4">
+                <label for="username" class="block text-gray-700 text-sm font-bold mb-2">Username</label>
+                <input type="text" name="username" id="username" placeholder="Enter your username" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
             </div>
-            <div>
-                <label for="password">Password</label>
-                <input type="password" name="password" id="password" placeholder="Enter your password">
+            <div class="mb-4">
+                <label for="password" class="block text-gray-700 text-sm font-bold mb-2">Password</label>
+                <input type="password" name="password" id="password" placeholder="Enter your password" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
             </div>
-            <div>
-                <label for="confirmPassword">Confirm Password</label>
-                <input type="password" name="confirmPassword" id="confirmPassword" placeholder="Confirm your password">
+            <div class="mb-4">
+                <label for="confirmPassword" class="block text-gray-700 text-sm font-bold mb-2">Confirm Password</label>
+                <input type="password" name="confirmPassword" id="confirmPassword" placeholder="Confirm your password" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
             </div>
-            <div>
-                <button type="submit">Register</button>
+            <div hidden class="mb-4">
+                <label for="role" class="block text-gray-700 text-sm font-bold mb-2">Role</label>
+                <select name="role" id="role" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                    <option value="user">User</option>
+                </select>
+            </div>
+            <div class="mb-4">
+                <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full">Register</button>
             </div>
         </form>
     </div>

@@ -1,69 +1,71 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Product</title>
-</head>
-<body>
-    <div>
-        <h1>Welcome to Palpale Store</h1>
-    </div>
-
-   <!-- <div>
-        <h2>Hi, </h2>
-    </div> -->
-
-    <div>
-        <a href="/login">Login</a>
-        <a href="/register">Register</a>
-    </div>
-
-    <div>
-        <a href="/products/add">Add Product</a>
-    </div>
-
-    <div>
-        <form action="/products" method="GET">
-            <div>
-                <label for="search">Search</label>
-                <% product.forEach(product => { %>
-                    <input type="text" name="search" id="search" placeholder="Search for products" value="<%= product.name %>">
-                <% }) %>
-                <button type="submit">Search</button>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Product</title>
+        <!-- Add Tailwind CSS CDN link -->
+        <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet">
+    </head>
+    <body class="bg-gray-100 font-sans">
+        <div class="bg-blue-500 p-4 text-white">
+            <h1 class="text-2xl font-semibold">Hi, <a href="/userProfile" class="hover:underline"><%= username %></a>. Welcome to PalpaleStore</h1>
+            <div class="p-4">
+                <a method="get" href="/logout" class="text-red-500 hover:underline">Logout</a>
             </div>
+        </div>
+
+    <div class="p-4">
+        <a href="/products/add" class="text-blue-500 hover:underline">Add Product</a>
+    </div>
+
+    <div class="p-4 flex justify-between">
+        <form action="/products/">
+            <label for="sort" class="mr-2">Sort By:</label>
+            <button type="submit" name="sortPrice" value="highest" class="btn btn-dark bg-blue-500 hover:bg-blue-700 text-white font-semibold py-1 px-3 rounded focus:outline-none focus:shadow-outline">Highest Price</button>
+            <button type="submit" name="sortPrice" value="lowest" class="btn btn-dark bg-blue-500 hover:bg-blue-700 text-white font-semibold py-1 px-3 rounded focus:outline-none focus:shadow-outline">Lowest Price</button>
+        </form>
+
+        <form action="/products/">
+            <label for="search" class="mr-2">Search:</label>
+            <input type="text" name="search" id="search" placeholder="Search for a product" class="border border-gray-300 rounded p-2 focus:outline-none focus:shadow-outline">
+            <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-semibold py-1 px-3 rounded focus:outline-none focus:shadow-outline">Search</button>
         </form>
     </div>
 
-    <div>
-        <table border="1">
+
+    <div class="container mx-auto mt-4">
+        <table class="w-full border-collapse border border-gray-300">
             <thead>
                 <tr>
-                    <th>Product Image</th>
-                    <th>Product Name</th>
-                    <th>Product Price</th>
-                    <th>Product Description</th>
-                    <th>Product Category</th>
-                    <th>Actions</th>
+                    <th class="p-2">Product Image</th>
+                    <th class="p-2">Product Name</th>
+                    <th class="p-2">Product Price</th>
+                    <th class="p-2">Product Stock</th>
+                    <th class="p-2">Product Description</th>
+                    <th class="p-2">Actions</th>
                 </tr>
             </thead>
             <tbody>
-                <% product.forEach(product => { %>
-                    <tr>
-                        <td style="width: 100px;"><img src="<%= product.productImg %>" alt="" style="width: 100%;"></td>
-                        <td><%= product.name %></td>
-                        <td><%= formatNumber(product.price) %></td>
-                        <td><%= product.description %></td>
-                        <td><%= product.categories %></td>
-                        <td>
-                            <a href="/products/edit/<%= product.id %>">Edit</a>
-                            <a href="/products/delete/<%= product.id %>">Delete</a>
-                            <a href="/product/<%= product.id %>">View</a>
-                            <a href="/cart">Add to Cart</a>
+                <% data.forEach(product => { %>
+                    <tr class="hover:bg-gray-100">
+                        <td style="text-align: center;" class="p-2"><img  style="text-align: center;" src="<%= product.productImg %>" alt="Product Image" width="100px" height="100px"></td>
+                        <td style="text-align: center;" class="p-2"><%= product.name %></td>
+                        <td style="text-align: center;" class="p-2"><%= formatNumber(product.price) %></td>
+                        <td style="text-align: center;" class="p-2"><%= product.stock %></td>
+                        <td style="text-align: center;" class="p-2"><%= product.description %></td>
+
+                        <td class="p-2">
+                            <% if (role === 'admin') { %>
+                                <a href="/products/edit/<%= product.id %>" class="text-blue-500 hover:underline mr-2">Edit</a>
+                                <a href="/products/delete/<%= product.id %>" class="text-red-500 hover:underline mr-2">Delete</a>
+                            <% } %>
+                            <a href="/product/<%= product.id %>" class="text-blue-500 hover:underline">View</a>
                         </td>
                     </tr>
                 <% }) %>
             </tbody>
+        </table>
     </div>
 </body>
 </html>

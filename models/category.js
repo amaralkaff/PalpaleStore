@@ -11,13 +11,17 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       Category.belongsToMany(models.Product, { through: models.ProductCategory })
+
     }
   }
   Category.init({
-    name: DataTypes.STRING
+    name: DataTypes.STRING,
   }, {
     sequelize,
     modelName: 'Category',
   });
+  Category.beforeCreate((category, options) => {
+    category.name = category.name.toUpperCase()
+  })
   return Category;
 };
