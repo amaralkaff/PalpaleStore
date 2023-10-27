@@ -29,30 +29,10 @@
     </div>
 
     <div class="container mx-auto p-4">
-        <h1 class="text-red-600 text-2xl font-semibold">Your order details:</h1>
+        <h1 class="text-red-600 text-2xl font-semibold">Your order details: - </h1>
     </div>
-
-    <div class="container mx-auto p-4">
-        <table class="w-full border-collapse border border-gray-300">
-            <thead>
-                <tr>
-                    <th class="p-2">Product Image</th>
-                    <th class="p-2">Product Name</th>
-                    <th class="p-2">Product Price</th>
-                    <th class="p-2">Product Quantity</th>
-                    <th class="p-2">Product Total</th>
-                </tr>
-            </thead>
-            <tbody>
-                <% product.forEach(product => { %>
-                    <tr class="hover:bg-gray-100">
-                        <td style="text-align: center;" class="p-2"><img  style="text-align: center;" src="<%= product.productImg %>" alt="Product Image" width="100px" height="100px"></td>
-                        <td style="text-align: center;" class="p-2"><%= product.stock %></td>
-                        <td style="text-align: center;" class="p-2"><%= product.name %></td>
-                    </tr>
-                <% }) %>
-            </tbody>
-        </table>
+            <a href="/products" style="text-align: center;" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4 block text-sm">Back to Products</a>
+        </div>
     </div>
 </body>
 </html>

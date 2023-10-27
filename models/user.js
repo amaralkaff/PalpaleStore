@@ -63,8 +63,8 @@ module.exports = (sequelize, DataTypes) => {
           msg: 'Password cannot be null'
         },
         len: {
-          args: [6],
-          msg: 'Password at least 6 characters'
+          args: [8],
+          msg: 'Password at least 8 characters'
         },
         is: {
           args: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{6,}$/,

@@ -34,9 +34,9 @@ router.use((req, res, next) => {
     } else {
         res.redirect('/login')
     }
-
-    
 })
+
+
 
 router.get('/logout', Controller.logout);
 

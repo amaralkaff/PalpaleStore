@@ -250,13 +250,17 @@ class Controller {
     static async checkout(req, res) {
         try {
             const data = await Product.findByPk(req.params.id, {
-                include: Category
+                include: Category,
+                where: {
+                    id: req.params.id
+                },
+                exclude: ['createdAt', 'updatedAt']
             })
             const username = req.session.user.username
             const role = req.session.user.role
-            const stock = req.body.stock
+            const name = req.body.name
             const product = await Product.update({
-                stock: stock
+                name: name
             }, {
                 where: {
                     id: req.params.id

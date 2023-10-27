@@ -14,6 +14,8 @@ module.exports = (sequelize, DataTypes) => {
         return 'Out of Stock'
       }
     }
+
+    
     
     static getSearchFilter(sortPrice, search) {
       let options = {}
